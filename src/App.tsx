@@ -1,26 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from "react";
 import './App.css';
+import {Post} from "./components/Post";
+import {IPost} from "./types";
+import Circle from "./images/circle.png"
+import LeftImg from "./images/lefImg.png"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//le immagini vengono viste come stringe (url), guardare come sono state passate alle props
+const posts: Array<IPost> = [{
+    title: "Haught or Naught",
+    subtitle: "High-minded or absent-minded?You decide",
+    submitterImg: Circle,
+    leftImg: LeftImg,
+    counter: 33
+    },
+    {
+        title: "SuperMajority",
+        subtitle: "Earn Point sadsa",
+        submitterImg: Circle,
+        leftImg: LeftImg,
+        counter: 27
+    }]
+
+
+ function addCounter():void{
+    console.log("SOno stato cliccato")
+ }
+
+const App: React.FunctionComponent = () => {
+    const [todos, setTodos] = useState(posts)
+    todos.map(todo => console.log(todo.title))
+    return <>{
+        //le parentesi graffe mi servono per scrivere codice tsx dentro jsx (per poter scrivere codice js)
+        todos.map((todo, index) =>
+            <Post post={todo}
+                  key={index}
+                  onClick={()=>addCounter()}
+                  />)
+    }
+    </>
+
+    {/*
+    todos.map(todo=> <Post title={todo.title}.../>)
+    */
+    }
+
+    {/*<Post post={posts[0]}
+              //name="ciao"
+              //oggetto={{title: "titoloMio"}}/>
+        <Post post={posts[1]}
+              //name="ciao"
+              //oggetto={{title: "titoloMio"}}/></>*/
+    }
+
 }
+
 
 export default App;
