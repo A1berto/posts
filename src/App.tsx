@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import './App.css';
 import {Post} from "./components/Post";
 import {IPost} from "./types";
-import Circle from "./images/circle.png"
-import LeftImg from "./images/lefImg.png"
+import Circle from "../../posts/src/images/circle.png"
+import LeftImg from "../../posts/src/images/lefImg.png"
 
 //le immagini vengono viste come stringe (url), guardare come sono state passate alle props
 const posts: Array<IPost> = [{
@@ -22,20 +22,23 @@ const posts: Array<IPost> = [{
     }]
 
 
- function addCounter():void{
-    console.log("SOno stato cliccato")
- }
-
 const App: React.FunctionComponent = () => {
     const [todos, setTodos] = useState(posts)
-    todos.map(todo => console.log(todo.title))
     return <>{
         //le parentesi graffe mi servono per scrivere codice tsx dentro jsx (per poter scrivere codice js)
         todos.map((todo, index) =>
             <Post post={todo}
                   key={index}
-                  onClick={()=>addCounter()}
-                  />)
+                  handleClick={() => {
+                      const arrays= todos.map((elem)=> {
+                          if (elem.title === todo.title) {
+                              ++elem.counter
+                          }
+                          return elem
+                      })
+                      setTodos(arrays)
+                  }}
+            />)
     }
     </>
 

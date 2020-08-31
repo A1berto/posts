@@ -1,16 +1,16 @@
 import React from 'react'
 import {IPost} from "../types"
-import Arrow from "../images/arrow.png"
+import Arrow from "../../../posts/src/images/arrow.png"
 
 interface PostProps {
     post: IPost
     //name: string
     //[key:string]: IPost | string
-    onClick: ()=>void
+    handleClick: ()=>void
 }
 
 export const Post: React.FunctionComponent<PostProps> = (props) => {
-    const {post} = props
+    const {post, handleClick} = props
     //const post = props.post
     return (
         <li style={{listStyle: "none", display: "flex", paddingBottom: "5vh"}}>
@@ -20,7 +20,7 @@ export const Post: React.FunctionComponent<PostProps> = (props) => {
             <img className="imgLeft" src={post.leftImg} alt="ImageOfPost"/>
 
             <div className="centerSide">
-                <img className="arrow" src={Arrow} alt="arrowToUpdateCounter" onClick={()=>post.onClick()} />
+                <img className="arrow" src={Arrow} alt="arrowToUpdateCounter" onClick={handleClick} />
                 <div className="counter">{post.counter}</div>
             </div>
             <div className="rightSide">
